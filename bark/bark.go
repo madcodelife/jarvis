@@ -7,11 +7,6 @@ import (
 	"os"
 )
 
-type BarkParams struct {
-	Title string `json:"title"`
-	Body  string `json:"body"`
-}
-
 func Push(b BarkParams) {
 	barkEndPoint := os.Getenv("BARK_END_POINT")
 
