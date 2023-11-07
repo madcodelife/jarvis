@@ -3,14 +3,19 @@ package bark
 import (
 	"bytes"
 	"encoding/json"
+	"log"
+	"macodelife/weather-cli/config"
 	"net/http"
-	"os"
 )
 
-func Push(b BarkParams) {
-	barkEndPoint := os.Getenv("BARK_END_POINT")
+func Push(b *BarkParams) {
+	log.Println("push bark message:", b)
 
 	jsonData, _ := json.Marshal(b)
 
-	http.Post(barkEndPoint, "application/json", bytes.NewBuffer(jsonData))
+	resp, err := http.Post(config.BarkEndPoint, "application/json", bytes.NewBuffer(jsonData))
+	if err != nil {
+		log.Fatalln("failed to push bark message:", err)
+	}
+	defer resp.Body.Close()
 }
