@@ -11,9 +11,9 @@ import (
 func main() {
 	config.Init()
 
-	liveWeather, weatherErr := weather.FetchWeather()
-	if weatherErr != nil {
-		log.Fatalln("failed to fetch weather info:", weatherErr)
+	liveWeather, err := weather.FetchWeather()
+	if err != nil {
+		log.Fatalln("failed to fetch weather info:", err)
 	}
 
 	d := bark.BarkParams{
