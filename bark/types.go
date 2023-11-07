@@ -3,13 +3,13 @@ package bark
 type BarkParamsLevel string
 
 const (
-	Active        BarkParamsLevel = "active"
-	TimeSensitive BarkParamsLevel = "timeSensitive"
-	Passive       BarkParamsLevel = "passive"
+	LevelActive        BarkParamsLevel = "active"
+	LevelTimeSensitive BarkParamsLevel = "timeSensitive"
+	LevelPassive       BarkParamsLevel = "passive"
 )
 
 type BarkParams struct {
-	Title string          `json:"title"`
-	Body  string          `json:"body"`
-	Level BarkParamsLevel `json:"Level"`
+	Title string           `json:"title"`
+	Body  string           `json:"body"`
+	Level *BarkParamsLevel `json:"Level"`
 }

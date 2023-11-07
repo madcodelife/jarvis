@@ -19,7 +19,6 @@ func main() {
 	d := bark.BarkParams{
 		Title: "今日天气",
 		Body:  fmt.Sprintf("今日天气「%s」，温度 %s°C", liveWeather.Weather, liveWeather.Temperature),
-		Level: bark.TimeSensitive,
 	}
 
 	bark.Push(&d)

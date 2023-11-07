@@ -11,6 +11,9 @@ import (
 func Push(b *BarkParams) {
 	log.Println("push bark message:", b)
 
+	level := LevelTimeSensitive
+	b.Level = &level
+
 	jsonData, _ := json.Marshal(b)
 
 	resp, err := http.Post(config.BarkEndPoint, "application/json", bytes.NewBuffer(jsonData))
