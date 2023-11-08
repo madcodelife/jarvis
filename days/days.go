@@ -7,9 +7,30 @@ import (
 	"time"
 )
 
-var Loc *time.Location
+var (
+	Loc *time.Location
+	Now TimeNow
+)
 
-func initTimezone() {
+func (m *Moment) remainingDays() int {
+	var year int
+
+	if m.Month < Now.Month {
+		year = Now.Year + 1
+	} else {
+		year = Now.Year
+	}
+
+	tick := time.Date(year, m.Month, m.Day, 0, 0, 0, 0, Loc)
+
+	duration := tick.Sub(Now.Time)
+
+	remainingDays := int(duration.Hours() / 24)
+
+	return remainingDays
+}
+
+func initTime() {
 	// "Asia/Shanghai"
 	l, err := time.LoadLocation("Asia/Shanghai")
 	if err != nil {
@@ -17,10 +38,18 @@ func initTimezone() {
 		return
 	}
 	Loc = l
+
+	now := time.Now().In(Loc)
+
+	Now = TimeNow{
+		Time:  now,
+		Year:  now.Year(),
+		Month: now.Month(),
+	}
 }
 
 func countdown() {
-	initTimezone()
+	initTime()
 
 	var Moments = []Moment{
 		{Name: "陈双的生日", Month: time.January, Day: 13},
@@ -28,25 +57,23 @@ func countdown() {
 		{Name: "七七的生日", Month: time.July, Day: 17},
 	}
 
-	now, yearNow, monthNow, _ := getNow()
-
 	var upcomingDays []string
 
 	for _, m := range Moments {
-		year := yearNow
+		remainingDays := m.remainingDays()
 
-		if m.Month < monthNow {
-			year = yearNow + 1
-		}
+		if remainingDays < 30 {
+			var s string
 
-		tick := time.Date(year, m.Month, m.Day, 0, 0, 0, 0, Loc)
+			if remainingDays == 0 {
+				s = fmt.Sprintf("今天是「%s」🥳 ", m.Name)
+			} else if remainingDays < 1 {
+				s = fmt.Sprintf("⚠️ 明天是「%s」，千万不要忘了哦", m.Name)
+			} else {
+				s = fmt.Sprintf("距离「%s」还有 %s 天", m.Name, fmt.Sprint(remainingDays))
+			}
 
-		duration := tick.Sub(now)
-
-		remainingDays := int(duration.Hours() / 24)
-
-		if remainingDays < 90 {
-			upcomingDays = append(upcomingDays, fmt.Sprintf("距离「%s」还有 %s 天", m.Name, fmt.Sprint(remainingDays)))
+			upcomingDays = append(upcomingDays, s)
 		}
 	}
 
@@ -56,15 +83,6 @@ func countdown() {
 			Body:  strings.Join(upcomingDays, "\n"),
 		})
 	}
-}
-
-func getNow() (time.Time, int, time.Month, int) {
-	now := time.Now().In(Loc)
-	yearNow := now.Year()
-	monthNow := now.Month()
-	dayNow := now.Day()
-
-	return now, yearNow, monthNow, dayNow
 }
 
 func Push() {
