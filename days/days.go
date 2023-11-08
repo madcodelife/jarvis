@@ -15,7 +15,7 @@ var (
 func (m *Moment) remainingDays() int {
 	var year int
 
-	if m.Month < Now.Month {
+	if m.Month < Now.Month || (m.Month == Now.Month && m.Day < Now.Day) {
 		year = Now.Year + 1
 	} else {
 		year = Now.Year
@@ -40,11 +40,13 @@ func initTime() {
 	Loc = l
 
 	now := time.Now().In(Loc)
+	startOfNow := time.Date(now.Year(), now.Month(), now.Day(), 0, 0, 0, 0, Loc)
 
 	Now = TimeNow{
-		Time:  now,
-		Year:  now.Year(),
-		Month: now.Month(),
+		Time:  startOfNow,
+		Year:  startOfNow.Year(),
+		Month: startOfNow.Month(),
+		Day:   startOfNow.Day(),
 	}
 }
 
@@ -67,7 +69,7 @@ func countdown() {
 
 			if remainingDays == 0 {
 				s = fmt.Sprintf("今天是「%s」🥳 ", m.Name)
-			} else if remainingDays < 1 {
+			} else if remainingDays <= 1 {
 				s = fmt.Sprintf("⚠️ 明天是「%s」，千万不要忘了哦", m.Name)
 			} else {
 				s = fmt.Sprintf("距离「%s」还有 %s 天", m.Name, fmt.Sprint(remainingDays))
