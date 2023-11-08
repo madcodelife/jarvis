@@ -2,7 +2,10 @@ package weather
 
 import (
 	"encoding/json"
+	"fmt"
 	"io"
+	"log"
+	"macodelife/weather-cli/bark"
 	"macodelife/weather-cli/config"
 	"net/http"
 	"net/url"
@@ -10,7 +13,7 @@ import (
 	"github.com/pkg/errors"
 )
 
-func FetchWeather() (WeatherLive, error) {
+func fetchWeather() (WeatherLive, error) {
 	queryParams := url.Values{}
 	queryParams.Add("key", config.WeatherApiKey)
 	queryParams.Add("city", "510100")
@@ -34,4 +37,18 @@ func FetchWeather() (WeatherLive, error) {
 	}
 
 	return data.Lives[0], nil
+}
+
+func Push() {
+	liveWeather, err := fetchWeather()
+	if err != nil {
+		log.Fatalln("failed to fetch weather info:", err)
+	}
+
+	d := bark.BarkParams{
+		Title: fmt.Sprintf("☁️ 今日天气「%s」", liveWeather.Weather),
+		Body:  fmt.Sprintf("温度 %s°C", liveWeather.Temperature),
+	}
+
+	bark.Push(&d)
 }

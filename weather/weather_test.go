@@ -11,7 +11,7 @@ import (
 func TestFetchWeather(t *testing.T) {
 	config.Init()
 
-	liveWeather, err := FetchWeather()
+	liveWeather, err := fetchWeather()
 	if err != nil {
 		log.Fatalln("failed to fetch weather info:", err)
 	}
