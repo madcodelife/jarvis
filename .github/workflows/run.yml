@@ -1,10 +1,9 @@
 name: Run
 
 on:
-  push
-  # schedule:
-  #   # every day at 6:00 am (Beijing time)
-  #   - cron: '0 22 * * *'
+  schedule:
+    # every day at 6:00 am (Beijing time)
+    - cron: '0 22 * * *'
 
 jobs:
   run:
