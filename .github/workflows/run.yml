@@ -1,9 +1,10 @@
 name: Run
 
 on:
-  schedule:
-    # every day at 6:00 am (Beijing time)
-    - cron: '0 22 * * *'
+  push
+  # schedule:
+  #   # every day at 6:00 am (Beijing time)
+  #   - cron: '0 22 * * *'
 
 jobs:
   run:
@@ -17,16 +18,13 @@ jobs:
           go-version: '1.20'
 
       - name: Run
-        env:
-          CI: 1
-          WEATHER_END_POINT: ${{ secrets.WEATHER_END_POINT }}
-          WEATHER_API_KEY: ${{ secrets.WEATHER_API_KEY }}
-          BARK_END_POINT: ${{ secrets.BARK_END_POINT }}
-        run: go run .
-
-      - name: Retry
         uses: nick-fields/retry@v2
         with:
           timeout_minutes: 5
           max_attempts: 3
           command: go run .
+        env:
+          CI: 1
+          WEATHER_END_POINT: ${{ secrets.WEATHER_END_POINT }}
+          WEATHER_API_KEY: ${{ secrets.WEATHER_API_KEY }}
+          BARK_END_POINT: ${{ secrets.BARK_END_POINT }}
