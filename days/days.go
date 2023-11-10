@@ -21,7 +21,6 @@ func (m *Moment) remainingDays() int {
 	day := m.Day
 
 	if m.Lunar {
-		// 优先获取上一年的农历，如果非当前年份，获取当年的农历
 		date := calendar.NewLunarFromYmd(Now.Year-1, int(m.Month), m.Day).GetSolar()
 
 		if date.GetYear() < Now.Year {
