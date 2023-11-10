@@ -15,7 +15,6 @@ func Push(b *BarkParams) {
 	b.Level = &level
 
 	jsonData, _ := json.Marshal(b)
-
 	resp, err := http.Post(config.BarkEndPoint, "application/json", bytes.NewBuffer(jsonData))
 	if err != nil {
 		log.Fatalln("failed to push bark message:", err)

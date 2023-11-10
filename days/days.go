@@ -15,22 +15,19 @@ var (
 )
 
 func (m *Moment) remainingDays() int {
-	var year int
-
 	month := m.Month
 	day := m.Day
 
 	if m.Lunar {
 		date := calendar.NewLunarFromYmd(Now.Year-1, int(m.Month), m.Day).GetSolar()
-
 		if date.GetYear() < Now.Year {
 			date = calendar.NewLunarFromYmd(Now.Year, int(m.Month), m.Day).GetSolar()
 		}
-
 		month = time.Month(date.GetMonth())
 		day = date.GetDay()
 	}
 
+	var year int
 	if month < Now.Month || (month == Now.Month && day < Now.Day) {
 		year = Now.Year + 1
 	} else {
@@ -38,11 +35,8 @@ func (m *Moment) remainingDays() int {
 	}
 
 	tick := time.Date(year, month, day, 0, 0, 0, 0, Loc)
-
 	duration := tick.Sub(Now.Time)
-
 	remainingDays := int(duration.Hours() / 24)
-
 	return remainingDays
 }
 
@@ -57,7 +51,6 @@ func initTime() {
 
 	now := time.Now().In(Loc)
 	startOfNow := time.Date(now.Year(), now.Month(), now.Day(), 0, 0, 0, 0, Loc)
-
 	Now = TimeNow{
 		Time:  startOfNow,
 		Year:  startOfNow.Year(),
@@ -80,13 +73,10 @@ func countdown() []string {
 	}
 
 	var upcomingDays []string
-
 	for _, m := range Moments {
 		remainingDays := m.remainingDays()
-
 		if remainingDays < 30 {
 			var s string
-
 			if remainingDays == 0 {
 				s = fmt.Sprintf("今天是「%s」", m.Name)
 			} else if remainingDays <= 1 {
@@ -94,7 +84,6 @@ func countdown() []string {
 			} else {
 				s = fmt.Sprintf("距离「%s」还有 %s 天", m.Name, fmt.Sprint(remainingDays))
 			}
-
 			upcomingDays = append(upcomingDays, s)
 		}
 	}
@@ -104,7 +93,6 @@ func countdown() []string {
 
 func Push() {
 	upcomingDays := countdown()
-
 	if upcomingDays != nil {
 		bark.Push(&bark.BarkParams{
 			Title: "🗓️ Days Matter 🥳",

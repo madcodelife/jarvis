@@ -19,7 +19,6 @@ func fetchWeather() (WeatherLive, error) {
 	queryParams.Add("city", "510100")
 
 	finalURL := config.WeatherEndPoint + "?" + queryParams.Encode()
-
 	resp, err := http.Get(finalURL)
 	if err != nil {
 		return WeatherLive{}, errors.Wrap(err, "failed to get weather info")
@@ -49,6 +48,5 @@ func Push() {
 		Title: fmt.Sprintf("☁️ 今日天气「%s」", liveWeather.Weather),
 		Body:  fmt.Sprintf("温度 %s°C", liveWeather.Temperature),
 	}
-
 	bark.Push(&d)
 }
