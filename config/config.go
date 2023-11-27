@@ -13,11 +13,11 @@ var (
 	CI = os.Getenv("CI")
 
 	// weather
-	WeatherEndPoint = os.Getenv("WEATHER_END_POINT")
+	WeatherEndpoint = os.Getenv("WEATHER_ENDPOINT")
 	WeatherApiKey   = os.Getenv("WEATHER_API_KEY")
 
 	// bark
-	BarkEndPoint = os.Getenv("BARK_END_POINT")
+	BarkEndpoints = os.Getenv("BARK_ENDPOINTS")
 )
 
 const projectDirName = "jarvis"
@@ -34,9 +34,9 @@ func Init() {
 			log.Fatal("failed to read .env file", err)
 		}
 
-		WeatherEndPoint = e["WEATHER_END_POINT"]
+		WeatherEndpoint = e["WEATHER_ENDPOINT"]
 		WeatherApiKey = e["WEATHER_API_KEY"]
-		BarkEndPoint = e["BARK_END_POINT"]
+		BarkEndpoints = e["BARK_ENDPOINTS"]
 	}
 
 }

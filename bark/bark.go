@@ -17,9 +17,9 @@ func Push(b *BarkParams) {
 
 	jsonData, _ := json.Marshal(b)
 
-	barkEndPoints := strings.Split(config.BarkEndPoint, ",")
+	barkEndpoints := strings.Split(config.BarkEndpoints, ",")
 
-	for _, endpoint := range barkEndPoints {
+	for _, endpoint := range barkEndpoints {
 		send(jsonData, endpoint)
 	}
 }

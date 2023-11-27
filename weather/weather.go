@@ -20,7 +20,7 @@ func fetchWeather() (WeatherForecasts, error) {
 	queryParams.Add("city", "510100")
 	queryParams.Add("extensions", "all")
 
-	finalURL := config.WeatherEndPoint + "?" + queryParams.Encode()
+	finalURL := config.WeatherEndpoint + "?" + queryParams.Encode()
 	resp, err := http.Get(finalURL)
 	if err != nil {
 		return WeatherForecasts{}, errors.Wrap(err, "failed to get weather info")

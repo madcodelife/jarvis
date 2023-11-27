@@ -9,7 +9,7 @@ import (
 func TestInit(t *testing.T) {
 	Init()
 
-	assert.NotNil(t, WeatherEndPoint)
+	assert.NotNil(t, WeatherEndpoint)
 	assert.NotNil(t, WeatherApiKey)
-	assert.NotNil(t, BarkEndPoint)
+	assert.NotNil(t, BarkEndpoints)
 }
