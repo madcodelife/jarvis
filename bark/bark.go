@@ -6,6 +6,7 @@ import (
 	"log"
 	"macodelife/weather-cli/config"
 	"net/http"
+	"strings"
 )
 
 func Push(b *BarkParams) {
@@ -15,7 +16,16 @@ func Push(b *BarkParams) {
 	b.Level = &level
 
 	jsonData, _ := json.Marshal(b)
-	resp, err := http.Post(config.BarkEndPoint, "application/json", bytes.NewBuffer(jsonData))
+
+	barkEndPoints := strings.Split(config.BarkEndPoint, ",")
+
+	for _, endpoint := range barkEndPoints {
+		send(jsonData, endpoint)
+	}
+}
+
+func send(jsonData []byte, endpoint string) {
+	resp, err := http.Post(endpoint, "application/json", bytes.NewBuffer(jsonData))
 	if err != nil {
 		log.Fatalln("failed to push bark message:", err)
 	}
