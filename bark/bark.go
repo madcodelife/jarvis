@@ -13,8 +13,8 @@ import (
 func Push(b *BarkParams) {
 	log.Println("push bark message:", b)
 
-	level := LevelTimeSensitive
-	b.Level = &level
+	b.Level = LevelTimeSensitive
+	b.Icon = "https://res.cloudinary.com/dspnhl2nc/image/upload/v1701154433/77.jpg"
 
 	jsonData, _ := json.Marshal(b)
 

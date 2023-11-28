@@ -9,7 +9,8 @@ const (
 )
 
 type BarkParams struct {
-	Title string           `json:"title"`
-	Body  string           `json:"body"`
-	Level *BarkParamsLevel `json:"Level"`
+	Title string          `json:"title"`
+	Body  string          `json:"body"`
+	Level BarkParamsLevel `json:"level"`
+	Icon  string          `json:"icon"`
 }
