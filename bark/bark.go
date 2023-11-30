@@ -40,4 +40,6 @@ func makeRequest(jsonData []byte, endpoint string, wg *sync.WaitGroup) {
 	}
 
 	defer resp.Body.Close()
+
+	log.Printf("%s pushed", endpoint)
 }
