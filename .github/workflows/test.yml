@@ -18,7 +18,7 @@ jobs:
           CI: 1
           WEATHER_ENDPOINT: ${{ secrets.WEATHER_ENDPOINT }}
           WEATHER_API_KEY: ${{ secrets.WEATHER_API_KEY }}
-          BARK_ENDPOINTS: ${{ secrets.BARK_ENDPOINTS }}
+          BARK_ENDPOINTS: ${{ secrets.BARK_ENDPOINTS_TEST }}
         run: |
           go test ./...
           go run .

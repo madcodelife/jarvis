@@ -20,10 +20,9 @@ var (
 	BarkEndpoints = os.Getenv("BARK_ENDPOINTS")
 )
 
-const projectDirName = "jarvis"
-
 func Init() {
 	if CI == "" {
+		const projectDirName = "jarvis"
 		re := regexp.MustCompile(`^(.*` + projectDirName + `)`)
 		cwd, _ := os.Getwd()
 		rootPath := re.Find([]byte(cwd))
@@ -36,7 +35,6 @@ func Init() {
 
 		WeatherEndpoint = e["WEATHER_ENDPOINT"]
 		WeatherApiKey = e["WEATHER_API_KEY"]
-		BarkEndpoints = e["BARK_ENDPOINTS"]
+		BarkEndpoints = e["BARK_ENDPOINTS_TEST"]
 	}
-
 }
