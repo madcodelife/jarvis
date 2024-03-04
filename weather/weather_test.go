@@ -2,7 +2,7 @@ package weather
 
 import (
 	"log"
-	"macodelife/weather-cli/config"
+	"macodelife/jarvis/config"
 	"testing"
 
 	"github.com/stretchr/testify/assert"

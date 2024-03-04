@@ -2,7 +2,7 @@ package days
 
 import (
 	"fmt"
-	"macodelife/weather-cli/bark"
+	"macodelife/jarvis/bark"
 	"strings"
 	"time"
 

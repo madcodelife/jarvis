@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"log"
-	"macodelife/weather-cli/config"
+	"macodelife/jarvis/config"
 	"net/http"
 	"strings"
 	"sync"
@@ -14,7 +14,7 @@ func Push(b *BarkParams) {
 	log.Println("push bark message:", b)
 
 	b.Level = LevelTimeSensitive
-	b.Icon = "https://res.cloudinary.com/dspnhl2nc/image/upload/v1701326671/jarvis/77_ukxrzn.jpg"
+	b.Icon = "https://p.madcodelife.com/blog/2024/03/8d2bb671d84df3ec2613d1d3565e2453.jpg"
 
 	jsonData, _ := json.Marshal(b)
 

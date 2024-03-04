@@ -1,4 +1,4 @@
-module macodelife/weather-cli
+module macodelife/jarvis
 
 go 1.20
 

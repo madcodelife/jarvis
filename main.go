@@ -1,9 +1,9 @@
 package main
 
 import (
-	"macodelife/weather-cli/config"
-	"macodelife/weather-cli/days"
-	"macodelife/weather-cli/weather"
+	"macodelife/jarvis/config"
+	"macodelife/jarvis/days"
+	"macodelife/jarvis/weather"
 )
 
 func main() {
