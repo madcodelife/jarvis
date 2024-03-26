@@ -15,3 +15,8 @@ type TimeNow struct {
 	Month time.Month
 	Day   int
 }
+
+type Reminder struct {
+	Day     int
+	Message string
+}

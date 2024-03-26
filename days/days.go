@@ -14,6 +14,20 @@ var (
 	Now TimeNow
 )
 
+var Moments = []Moment{
+	{Name: "陈双的生日🎂", Month: time.January, Day: 13},
+	{Name: "王一旋的生日🎂", Month: time.January, Day: 16},
+	{Name: "蒋姐的生日🎂", Month: time.June, Day: 6, Lunar: true},
+	{Name: "七七的生日🎂", Month: time.July, Day: 17},
+	{Name: "凯哥的生日🎂", Month: time.September, Day: 11, Lunar: true},
+	{Name: "结婚纪念日💍", Month: time.September, Day: 30},
+	{Name: "老戴的生日🎂", Month: time.October, Day: 12, Lunar: true},
+}
+
+var Reminders = []Reminder{
+	{Day: 1, Message: "月底了，记得还信用卡💳"},
+}
+
 func (m *Moment) remainingDays() int {
 	month := m.Month
 	day := m.Day
@@ -60,18 +74,6 @@ func initTime() {
 }
 
 func countdown() []string {
-	initTime()
-
-	var Moments = []Moment{
-		{Name: "陈双的生日🎂", Month: time.January, Day: 13},
-		{Name: "王一旋的生日🎂", Month: time.January, Day: 16},
-		{Name: "蒋姐的生日🎂", Month: time.June, Day: 6, Lunar: true},
-		{Name: "七七的生日🎂", Month: time.July, Day: 17},
-		{Name: "凯哥的生日🎂", Month: time.September, Day: 11, Lunar: true},
-		{Name: "结婚纪念日💍", Month: time.September, Day: 30},
-		{Name: "老戴的生日🎂", Month: time.October, Day: 12, Lunar: true},
-	}
-
 	var upcomingDays []string
 	for _, m := range Moments {
 		remainingDays := m.remainingDays()
@@ -91,12 +93,29 @@ func countdown() []string {
 	return upcomingDays
 }
 
+func checkReminders() []string {
+	var reminders []string
+	for _, r := range Reminders {
+		if r.Day == Now.Day {
+			reminders = append(reminders, r.Message)
+		}
+	}
+
+	return reminders
+}
+
 func Push() {
+	initTime()
+
 	upcomingDays := countdown()
-	if upcomingDays != nil {
+	reminders := checkReminders()
+
+	events := append(upcomingDays, reminders...)
+
+	if events != nil {
 		bark.Push(&bark.BarkParams{
 			Title: "🗓️ Days Matter 🥳",
-			Body:  strings.Join(upcomingDays, "\n"),
+			Body:  strings.Join(events, "\n"),
 		})
 	}
 }

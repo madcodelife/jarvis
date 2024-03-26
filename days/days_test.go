@@ -40,3 +40,15 @@ func TestRemainingDays(t *testing.T) {
 	m7 := Moment{Name: "", Month: time.January, Day: 20, Lunar: true}
 	assert.Equal(t, m7.remainingDays(), 31)
 }
+
+func TestCheckReminders(t *testing.T) {
+	now := time.Date(2023, time.January, 1, 0, 0, 0, 0, Loc)
+	Now = TimeNow{
+		Time:  now,
+		Year:  now.Year(),
+		Month: now.Month(),
+		Day:   now.Day(),
+	}
+
+	assert.Equal(t, checkReminders()[0], "月底了，记得还信用卡💳")
+}
