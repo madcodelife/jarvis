@@ -42,6 +42,8 @@ func TestRemainingDays(t *testing.T) {
 }
 
 func TestCheckReminders(t *testing.T) {
+	Loc, _ = time.LoadLocation("Asia/Shanghai")
+
 	now := time.Date(2023, time.January, 1, 0, 0, 0, 0, Loc)
 	Now = TimeNow{
 		Time:  now,
