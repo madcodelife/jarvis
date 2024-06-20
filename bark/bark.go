@@ -14,7 +14,7 @@ func Push(b *BarkParams) {
 	log.Println("push bark message:", b)
 
 	b.Level = LevelTimeSensitive
-	b.Icon = "https://p.madcodelife.com/blog/2024/03/8d2bb671d84df3ec2613d1d3565e2453.jpg"
+	b.Icon = "https://p.madcodelife.com/blog/2024/06/2a020e187c1252a3c59c70c6ff29f8f8.jpeg"
 
 	jsonData, _ := json.Marshal(b)
 
