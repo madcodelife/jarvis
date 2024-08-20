@@ -22,6 +22,7 @@ var Moments = []Moment{
 	{Name: "凯哥的生日🎂", Month: time.September, Day: 11, Lunar: true},
 	{Name: "结婚纪念日💍", Month: time.September, Day: 30},
 	{Name: "老戴的生日🎂", Month: time.October, Day: 12, Lunar: true},
+	{Name: "七七的生日🎂", Month: time.July, Day: 17},
 }
 
 var Reminders = []Reminder{
