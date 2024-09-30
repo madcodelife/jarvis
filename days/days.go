@@ -20,7 +20,7 @@ var Moments = []Moment{
 	{Name: "蒋姐的生日🎂", Month: time.June, Day: 6, Lunar: true},
 	{Name: "七七的生日🎂", Month: time.July, Day: 17},
 	{Name: "凯哥的生日🎂", Month: time.September, Day: 11, Lunar: true},
-	{Name: "结婚纪念日💍", Month: time.September, Day: 30},
+	{Name: "结婚纪念日💍", Month: time.October, Day: 9},
 	{Name: "老戴的生日🎂", Month: time.October, Day: 12, Lunar: true},
 	{Name: "七七的生日🎂", Month: time.July, Day: 17},
 }
