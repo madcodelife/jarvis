@@ -1,6 +1,7 @@
 package days
 
 import (
+	"macodelife/jarvis/config"
 	"testing"
 	"time"
 
@@ -42,6 +43,10 @@ func TestRemainingDays(t *testing.T) {
 }
 
 func TestCheckReminders(t *testing.T) {
+	config.Init()
+	client := initClient()
+	fetchReminders(client)
+
 	Loc, _ = time.LoadLocation("Asia/Shanghai")
 
 	now := time.Date(2023, time.January, 1, 0, 0, 0, 0, Loc)
