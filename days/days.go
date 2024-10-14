@@ -3,6 +3,7 @@ package days
 import (
 	"encoding/json"
 	"fmt"
+	"log"
 	"macodelife/jarvis/bark"
 	"macodelife/jarvis/config"
 	"strings"
@@ -51,7 +52,7 @@ func initTime() {
 	// "Asia/Shanghai"
 	l, err := time.LoadLocation("Asia/Shanghai")
 	if err != nil {
-		fmt.Println("failed to load time location", err)
+		log.Fatalln("failed to load time location", err)
 		return
 	}
 	Loc = l
@@ -100,13 +101,13 @@ func checkReminders() []string {
 func fetchMoments(client *supabase.Client) {
 	body, _, err := client.From("moments").Select("*", "exact", false).Execute()
 	if err != nil {
-		fmt.Println("failed to fetch moments", err)
+		log.Fatalln("failed to fetch moments", err)
 		return
 	}
 
 	var data []Moment
 	if err := json.Unmarshal(body, &data); err != nil {
-		fmt.Println("failed to unmarshal moments", err)
+		log.Fatalln("failed to unmarshal moments", err)
 		return
 	}
 
@@ -116,13 +117,13 @@ func fetchMoments(client *supabase.Client) {
 func fetchReminders(client *supabase.Client) {
 	body, _, err := client.From("reminders").Select("*", "exact", false).Execute()
 	if err != nil {
-		fmt.Println("failed to fetch reminders", err)
+		log.Fatalln("failed to fetch reminders", err)
 		return
 	}
 
 	var data []Reminder
 	if err := json.Unmarshal(body, &data); err != nil {
-		fmt.Println("failed to unmarshal reminders", err)
+		log.Fatalln("failed to unmarshal reminders", err)
 		return
 	}
 
@@ -132,7 +133,7 @@ func fetchReminders(client *supabase.Client) {
 func initClient() *supabase.Client {
 	client, err := supabase.NewClient(config.SupabaseUrl, config.SupabaseKey, &supabase.ClientOptions{})
 	if err != nil {
-		fmt.Println("failed to initialize supabase client", err)
+		log.Fatalln("failed to initialize supabase client", err)
 		return nil
 	}
 
