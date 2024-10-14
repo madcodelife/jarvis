@@ -130,6 +130,7 @@ func fetchReminders(client *supabase.Client) {
 }
 
 func initClient() *supabase.Client {
+	fmt.Println(config.SupabaseUrl, config.SupabaseKey)
 	client, err := supabase.NewClient(config.SupabaseUrl, config.SupabaseKey, &supabase.ClientOptions{})
 	if err != nil {
 		fmt.Println("failed to initialize supabase client", err)
