@@ -18,6 +18,10 @@ var (
 
 	// bark
 	BarkEndpoints = os.Getenv("BARK_ENDPOINTS")
+
+	// supabase
+	SupabaseUrl = os.Getenv("SUPABASE_URL")
+	SupabaseKey = os.Getenv("SUPABASE_KEY")
 )
 
 func Init() {
@@ -36,5 +40,7 @@ func Init() {
 		WeatherEndpoint = e["WEATHER_ENDPOINT"]
 		WeatherApiKey = e["WEATHER_API_KEY"]
 		BarkEndpoints = e["BARK_ENDPOINTS_TEST"]
+		SupabaseUrl = e["SUPABASE_URL"]
+		SupabaseKey = e["SUPABASE_KEY"]
 	}
 }

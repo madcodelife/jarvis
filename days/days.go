@@ -1,12 +1,16 @@
 package days
 
 import (
+	"encoding/json"
 	"fmt"
+	"log"
 	"macodelife/jarvis/bark"
+	"macodelife/jarvis/config"
 	"strings"
 	"time"
 
 	"github.com/6tail/lunar-go/calendar"
+	"github.com/supabase-community/supabase-go"
 )
 
 var (
@@ -14,20 +18,9 @@ var (
 	Now TimeNow
 )
 
-var Moments = []Moment{
-	{Name: "陈双的生日🎂", Month: time.January, Day: 13},
-	{Name: "王一旋的生日🎂", Month: time.January, Day: 16},
-	{Name: "蒋姐的生日🎂", Month: time.June, Day: 6, Lunar: true},
-	{Name: "七七的生日🎂", Month: time.July, Day: 17},
-	{Name: "凯哥的生日🎂", Month: time.September, Day: 11, Lunar: true},
-	{Name: "结婚纪念日💍", Month: time.October, Day: 9},
-	{Name: "老戴的生日🎂", Month: time.October, Day: 12, Lunar: true},
-	{Name: "七七的生日🎂", Month: time.July, Day: 17},
-}
+var Moments = []Moment{}
 
-var Reminders = []Reminder{
-	{Day: 1, Message: "月底了，记得还信用卡💳"},
-}
+var Reminders = []Reminder{}
 
 func (m *Moment) remainingDays() int {
 	month := m.Month
@@ -59,7 +52,7 @@ func initTime() {
 	// "Asia/Shanghai"
 	l, err := time.LoadLocation("Asia/Shanghai")
 	if err != nil {
-		fmt.Println("failed to load time location", err)
+		log.Fatalln("failed to load time location", err)
 		return
 	}
 	Loc = l
@@ -105,8 +98,53 @@ func checkReminders() []string {
 	return reminders
 }
 
+func fetchMoments(client *supabase.Client) {
+	body, _, err := client.From("moments").Select("*", "exact", false).Execute()
+	if err != nil {
+		log.Fatalln("failed to fetch moments", err)
+		return
+	}
+
+	var data []Moment
+	if err := json.Unmarshal(body, &data); err != nil {
+		log.Fatalln("failed to unmarshal moments", err)
+		return
+	}
+
+	Moments = data
+}
+
+func fetchReminders(client *supabase.Client) {
+	body, _, err := client.From("reminders").Select("*", "exact", false).Execute()
+	if err != nil {
+		log.Fatalln("failed to fetch reminders", err)
+		return
+	}
+
+	var data []Reminder
+	if err := json.Unmarshal(body, &data); err != nil {
+		log.Fatalln("failed to unmarshal reminders", err)
+		return
+	}
+
+	Reminders = data
+}
+
+func initClient() *supabase.Client {
+	client, err := supabase.NewClient(config.SupabaseUrl, config.SupabaseKey, &supabase.ClientOptions{})
+	if err != nil {
+		log.Fatalln("failed to initialize supabase client", err)
+		return nil
+	}
+
+	return client
+}
+
 func Push() {
 	initTime()
+	client := initClient()
+	fetchMoments(client)
+	fetchReminders(client)
 
 	upcomingDays := countdown()
 	reminders := checkReminders()

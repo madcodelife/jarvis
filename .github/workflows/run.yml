@@ -14,7 +14,7 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@v5
         with:
-          go-version: '1.20'
+          go-version: '1.23'
 
       - name: Run
         uses: nick-fields/retry@v3
@@ -27,3 +27,5 @@ jobs:
           WEATHER_ENDPOINT: ${{ secrets.WEATHER_ENDPOINT }}
           WEATHER_API_KEY: ${{ secrets.WEATHER_API_KEY }}
           BARK_ENDPOINTS: ${{ secrets.BARK_ENDPOINTS }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}

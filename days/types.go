@@ -3,10 +3,10 @@ package days
 import "time"
 
 type Moment struct {
-	Name  string
-	Month time.Month
-	Day   int
-	Lunar bool
+	Name  string     `json:"name"`
+	Month time.Month `json:"month"`
+	Day   int        `json:"day"`
+	Lunar bool       `json:"lunar"`
 }
 
 type TimeNow struct {
@@ -17,6 +17,6 @@ type TimeNow struct {
 }
 
 type Reminder struct {
-	Day     int
-	Message string
+	Day     int    `json:"day"`
+	Message string `json:"message"`
 }
