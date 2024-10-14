@@ -44,6 +44,7 @@ func TestRemainingDays(t *testing.T) {
 
 func TestCheckReminders(t *testing.T) {
 	config.Init()
+
 	client := initClient()
 	fetchReminders(client)
 
