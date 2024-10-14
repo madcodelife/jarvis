@@ -25,8 +25,6 @@ var (
 )
 
 func Init() {
-	log.Println(SupabaseUrl, SupabaseKey)
-
 	if CI == "" {
 		const projectDirName = "jarvis"
 		re := regexp.MustCompile(`^(.*` + projectDirName + `)`)

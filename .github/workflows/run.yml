@@ -27,3 +27,5 @@ jobs:
           WEATHER_ENDPOINT: ${{ secrets.WEATHER_ENDPOINT }}
           WEATHER_API_KEY: ${{ secrets.WEATHER_API_KEY }}
           BARK_ENDPOINTS: ${{ secrets.BARK_ENDPOINTS }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
