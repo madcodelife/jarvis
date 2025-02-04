@@ -2,7 +2,7 @@ module macodelife/jarvis
 
 go 1.21.1
 
-toolchain go1.23.5
+toolchain go1.23.6
 
 require (
 	github.com/joho/godotenv v1.5.1
