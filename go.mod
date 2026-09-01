@@ -7,7 +7,7 @@ toolchain go1.26.2
 require (
 	github.com/joho/godotenv v1.5.1
 	github.com/pkg/errors v0.9.1
-	github.com/stretchr/testify v1.11.1
+	github.com/stretchr/testify v1.12.1
 	github.com/supabase-community/supabase-go v0.0.4
 )
 
@@ -22,6 +22,7 @@ require (
 	github.com/supabase-community/postgrest-go v0.0.11 // indirect
 	github.com/supabase-community/storage-go v0.7.0 // indirect
 	github.com/tomnomnom/linkheader v0.0.0-20180905144013-02ca5825eb80 // indirect
+	go.yaml.in/yaml/v3 v3.0.5 // indirect
 )
 
 require (
